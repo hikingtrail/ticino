@@ -8,11 +8,11 @@ For pilgrims on their way from the St. Gotthard Pass to Roma.
 at [BosmaGrafiek](http://www.BosmaGrafiek.nl). [Bart's code on GitHub](https://github.com/leemeijer/E1-Ticino)
 Bart Leemeijer = student Geo Media & Design, [HAS Hogeschool](https://www.HASHogeschool.nl).
 
-Marijn Bosma, [BosmaGrafiek](http://www.BosmaGrafiek.nl), finishes the [Webmap Hikingtrail Ticino](https://hikingtrail.github.io/ticino) with some extra data and navigaton details. [Marijn's code on GitHub](https://github.com/hikingtrail/ticino)
+Marijn Bosma, [BosmaGrafiek](http://www.BosmaGrafiek.nl), finishes this [Webmap Hikingtrail Ticino](https://hikingtrail.github.io/ticino) with some extra data and navigaton details. [Code of this map by Marijn, on GitHub](https://github.com/hikingtrail/ticino)
 
 ## presentation
 Marijn Bosma presents this webmap on 20161119 to [De Vereniging Pelgrimswegen naar Rome](http://www.Pelgrimswegen.nl), the Dutch society for Pilgrims to Rome.
 
 ## feedback
-A work in progress.
+It's a work in progress.
 Please send your feedback for ongoing improvement of this hiking trail (and webmap!) to info@BosmaGrafiek.nl
