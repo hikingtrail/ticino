@@ -4,8 +4,8 @@ Hiking trail Lugano - Pavia, European long distance path E1 along the river Tici
 For pilgrims on their way from the St. Gotthard Pass to Roma.
 
 ## authors
-[Bart Leemeijer](https://nl.linkedin.com/in/bartleemeijer){:target="_blank"} developed [the first draft of this webmap](https://leemeijer.github.io/E1-Ticino/)  
-during his internship (September-November 2016) at [BosmaGrafiek](http://www.BosmaGrafiek.nl).  
+[Bart Leemeijer](https://nl.linkedin.com/in/bartleemeijer) developed [the first draft of this webmap](https://leemeijer.github.io/E1-Ticino/)  
+during his internship (September-November 2016) at [BosmaGrafiek](http://www.BosmaGrafiek.nl){:target="_blank"}.  
 [Bart's original code on GitHub](https://github.com/leemeijer/E1-Ticino)  
 Bart Leemeijer = student Geo Media & Design, [HAS Hogeschool](https://www.HASHogeschool.nl).
 
