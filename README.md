@@ -5,7 +5,7 @@ For pilgrims on their way from the St. Gotthard Pass to Roma.
 
 ## authors
 [Bart Leemeijer](https://nl.linkedin.com/in/bartleemeijer) developed [the first draft of this webmap](https://leemeijer.github.io/E1-Ticino/)  
-during his internship (September-November 2016) at [BosmaGrafiek]({:target="_blank"} http://www.BosmaGrafiek.nl).  
+during his internship (September-November 2016) at [BosmaGrafiek]({target="_blank"} http://www.BosmaGrafiek.nl).  
 [Bart's original code on GitHub](https://github.com/leemeijer/E1-Ticino)  
 Bart Leemeijer = student Geo Media & Design, [HAS Hogeschool](https://www.HASHogeschool.nl).
 
