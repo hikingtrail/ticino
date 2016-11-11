@@ -1,4 +1,4 @@
-﻿{
+{
 
      "type": "FeatureCollection",
 
@@ -8,7 +8,7 @@
 	   "type": "Feature", 
 	   "properties": { 
 		"nummer": 1, 
-		"name": "<b>Note:</b>", 
+		"name": "<b>Navigation detail:</b>", 
 		"omschrijvi": "This E1 local alternative is OK, but not very remarkable",
 		"website": "" ,  
 		"url_image": "<div> </div>"
@@ -22,7 +22,7 @@
 	    "type": "Feature", 
 	    "properties": { 
 		"nummer": 2, 
-		"name": "<b>Note:</b>", 
+		"name": "<b>Navigation detail:</b>", 
 		"omschrijvi": "How good is this part of the main route of the E1 hiking trail?",
 		"website": "" ,  
 		"url_image": "<div> </div>"
@@ -36,7 +36,7 @@
 	    "type": "Feature", 
 	    "properties": { 
 		"nummer": 3, 
-		"name": "<b>Note:</b>", 
+		"name": "<b>Navigation detail:</b>", 
 		"omschrijvi": "Is this E1 local alternative worth a detour?",
 		"website": "" ,  
 		"url_image": "<div> </div>"

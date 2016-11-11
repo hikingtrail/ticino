@@ -1,5 +1,6 @@
                                         //Inhoud van de kaart toevoegen:
-//Achtergrond kaarten:
+
+// Achtergrond kaarten (met per basemap onze auteursnamen toegevoegd):
 var
     osm = L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; <a target="_blank" href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> | made by <a target="_blank" href="https://www.linkedin.com/in/bartleemeijer?trk=hp-identity-name">Bart Leemeijer</a> & <a target="_blank" href="http://bosmagrafiek.nl/">Bosma Grafiek</a>'}),
    
@@ -14,16 +15,21 @@ var
     stamenWatercolor =
     L.tileLayer('http://tile.stamen.com/watercolor/{z}/{x}/{y}.jpg',      {attribution: '<a target="_blank" href="http://openstreetmap.org">OpenStreetMap</a>contributors, <a target="_blank" href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | made by <a target="_blank" href="https://www.linkedin.com/in/bartleemeijer?trk=hp-identity-name">Bart Leemeijer</a> & <a target="_blank" href="http://bosmagrafiek.nl/">Bosma Grafiek</a>'}),
 
-//Variabelen van de routes:
-    
-    Hoofdroute = L.geoJson(null, {style:style, onEachFeature:onEachFeature}),
-    LokaleVariant = L.geoJson(null, {style:style, onEachFeature:onEachFeature}),
-    Swiss02 = L.geoJson(null, {style:style, onEachFeature:onEachFeature}),
-    Swiss07 = L.geoJson(null, {style:style, onEachFeature:onEachFeature}),
-    ViaF = L.geoJson(null, {style:style, onEachFeature:onEachFeature}),
-    Aanbevolen = L.geoJson(null, {style:style});
+// Variabelen van de routes:  
+    Hoofdroute = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    LokaleVariant = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    Swiss02 = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    Swiss07 = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    ViaF = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    Aanbevolen = L.geoJson(null, {style:stijlfunctie});
 
-//Variabelen van de Points of Interest:
+
+
+// Variabelen van de Points of Interest. 
+// Voor elk soort POI / legenda-eenheid een afzonderlijke geoJson
+// Sommige puntsymbolen (zoals Bruggen) worden hier ter plekke gedefinieerd,
+// voor andere puntsymbolen worden de iconen zoals (var trainIcon = L.icon) verderop gemaakt.
+
     Stations = L.geoJson(null, {
                 pointToLayer: function(feature, latlng){
                     return L.marker(latlng, {
@@ -59,9 +65,10 @@ var
                             radius: 5, 
                             fillOpacity: 0.85
                             });
-                        }, onEachFeature: yourOnEachFeature
+                        }, onEachFeature: ferryOnEachFeature
                 });
 
+// Hieronder staan de "voetstapjes" van "Navigation details"
     opmerkingen = L.geoJson(null, {
                 pointToLayer: function(feature, latlng){
                     return L.marker(latlng, {
@@ -70,14 +77,14 @@ var
                     }, onEachFeature: footstepOnEachFeature
             });
 
-//__________________________________________________________________________________________________________________      
+//__________________________________________________________________________________________________________________    
                                         //Esri basemap toevoegen:
 
 var Esri = L.esri.basemapLayer('Topographic');
 var Imagery = L.esri.basemapLayer('Imagery');
 //Esri Basemaps zijn onder anderen: Topographic, Imagery, NationalGeographic, Streets, Oceans, Gray, DarkGray, SchadedRelief
 
-//__________________________________________________________________________________________________________________      
+//__________________________________________________________________________________________________________________    
                                         //GeoJsons oproepen:
 //Routes:
     jQuery.getJSON("GeoJson/E1_hoofdroute_italie.json", function (data) { Hoofdroute.addData(data)}),
@@ -91,11 +98,14 @@ var Imagery = L.esri.basemapLayer('Imagery');
     jQuery.getJSON("GeoJson/POI_stations_langs_route.geojson", function (data) { Stations.addData(data)}),
     jQuery.getJSON("GeoJson/POI_brug_voor_voetgangers.geojson", function (data) { Bruggen.addData(data)}),
     jQuery.getJSON("GeoJson/POI_pont_en_trein.geojson", function (data) { FerryFunicular.addData(data)}),
-    jQuery.getJSON("GeoJson/POI_scenery.geojson", function (data) { opmerkingen.addData(data)});
+    jQuery.getJSON("GeoJson/POI_navigation.geojson", function (data) { opmerkingen.addData(data)});
 
 //__________________________________________________________________________________________________________________      
                                         //Maken van de kaart:
 //Map + layers + eigenschappen 
+// {layers: [osm, Hoofdroute] zorgt er voor dat de osm basemap en de Hoofdroute lijn direct al AAN staan
+// .setView([45.654464,  9.164932], 10) bepaalt de plek op aarde en de zoomfactor van het begin-beeld
+
     var map = L.map('map', {layers: [osm, Hoofdroute], 
             minZoom: 9,
             maxBounds: [[46.160594, 8.1672119140625],   //NW punt
@@ -107,34 +117,40 @@ var Imagery = L.esri.basemapLayer('Imagery');
 //Met de regel hieronder voeg je de locatie button toe
 L.control.locate({position: 'bottomright'}).addTo(map);
 
-//__________________________________________________________________________________________________________________  
-                                        //Markers
-    var impressies = new L.LayerGroup();
-    L.marker([45.465526, 8.885021]).addTo(impressies).bindPopup('<b>Magenta</b> <div> <img style="width:80px" src="images/Magenta.png" /></div>');
-
-    var horeca = new L.LayerGroup();
-    L.marker([45.206231, 9.015038]).addTo(horeca);
-    
-    L.marker([45.342898, 8.880618]).addTo(impressies).bindPopup('<b>Gevaarlijke brug</b><br> Brug bij SP494 nabij Vigevano</br> <div> <img style="width:150px" src="images/brug.jpg" /></div>');
 
 //__________________________________________________________________________________________________________________  
-                                        //Popups: 
-//Vernoem je variabele en zet er '.bindPopup' achter om de popup te maken. Alles tussen de haakjes () is wat je te zien krijgt.
+                                        //Popups voor lijnen en evt losse illustraties
+
+// NB: De popups van de geoJson POI's worden hiermee NIET geregeld; dat gebeurt verderop in deze Script.js, bij de Functies
+
+//Vernoem per popup je variabele en zet er '.bindPopup' achter om de popup te maken. Alles tussen de haakjes () is de inhoud van de popup; zichtbare tekst en evt url's.
 
 //Routelijnen:
 Hoofdroute.bindPopup('<b>German Site for E1:</b> <a target="_blank" href="https://e1.hiking-europe.eu/">Hiking Europe</a> <br> <b>All hiking trails in Europe:</b> <a target="_blank" href="http://waymarkedtrails.org/">Waymarked Trails</a>')
+
 LokaleVariant.bindPopup('<a target="_blank" href="http://web.archive.org/web/20160405141619/http://www.enrosadira.it/e1/">Local E1 Alternatives</a>')
+
 ViaF.bindPopup('<b>Site:</b> <br> <a target="_blank" href="http://www.dewegvandefranken.nl/">Via Francigena</a>')
+
 Aanbevolen.bindPopup('Recommended bij BosmaGrafiek.nl for a part of the pilgrimage from the St. Gottthard pass to Roma')
+
 Swiss02.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.ch/en/routes/route-02.html">Trans Swiss Trail</a> <br> <b>App:</b> Search for <i>Switzerland Mobility</i>')
+
 Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.ch/en/routes/route-07.html">Via Gottardo</a> <br> <b>App:</b> Search for <i>Switzerland Mobility</i>');
 
 
 
 //__________________________________________________________________________________________________________________  
-                                        //Lagen menu toevoegen:  
+                                        //Lagen menu toevoegen
+
+// Dit gebeurt d.m.v. de plugin Leaflet.StyledLayerControl
+
 //Variabelen voor het lagen menu
-//Achtergrond kaarten:
+// false = niet opengeklapt in het menu
+// true = direct al wel opengeklapt in het menu
+
+
+//basemaps = kaarten, dat zijn de achtergrondkaarten:
     var kaarten = [
                     {
                     groupName:  "Basemaps",
@@ -150,7 +166,7 @@ Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
             }
         }];
 
-//Routes en Punten:
+//overlays = data, dat zijn de Routes en Punten:
     var data = [
                     {
                     groupName: "Hiking Trails",
@@ -180,18 +196,19 @@ Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
                     groupName: "Tourist Info",
                     expanded: true,
                     layers: {
-            "Scenery"                   : opmerkingen,
-            "Eat & sleep"               : horeca
+            "Navigation details"        : opmerkingen,
+        //  "Eat & sleep"               : horeca ??
             
             }
         }
     ];
 
 
-//Lagen menu
-    var control= L.Control.styledLayerControl(kaarten, data).addTo(map);
+//Uitklapmenu = het Lagen menu
+// NB: Bij de variabele Control kan je maximaal 2 variabelen zichtbaar maken
+    var uitklapmenu = L.Control.styledLayerControl(kaarten, data).addTo(map);
 
-//opmerking: Alles wat je in deze Layer Control wilt hebben moet je boven deze functie plaatsen anders gaat het mis.
+//NB: Alles wat je in deze Layer Control wilt hebben moet je boven deze functie L.Control.styledLayerControl plaatsen, anders gaat het mis.
 
 
 
@@ -201,11 +218,12 @@ Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
 var titel = L.control({position: 'topleft'});
 
 titel.onAdd = function (map) {
-    var div = L.DomUtil.create('div');
-    div.innerHTML = '<div> <img style="width:90%; height:100%" src="images/E1_ticino_title_up01_rgb[301].png"/> </div>';
-   return div;
+    var titelicoon = L.DomUtil.create('titelicoon');
+    titelicoon.innerHTML = '<div> <img style="width:90%; height:100%" src="images/E1_ticino_title_up01_rgb.png"/> </div>';
+   return titelicoon;
 };
 titel.addTo(map);
+
 
 //__________________________________________________________________________________________________________________ 
                                         //Legenda
@@ -213,29 +231,31 @@ titel.addTo(map);
 var legend = L.control({position: 'bottomleft'});
 
 legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
-    div.innerHTML = '<div> <img style="width:46%; height:50%"src="images/Legenda.png" /> </div>';
-   return div;
+    var legendaicoon = L.DomUtil.create('legendaicoon');
+    legendaicoon.innerHTML = '<div> <img style="width:46%; height:50%"src="images/Legenda.png" /> </div>';
+   return legendaicoon;
 };
 legend.addTo(map);
 
+
 //__________________________________________________________________________________________________________________ 
                                         //Schaalbalk
+// Schaalbalk wordt gemaakt d.m.v. de standaard Leaflet functie L.control.scale
 
-// haal de '//' weg voor .addTo(map) in de schaalbalk weer aan te zetten.
+// Staat nu UIT, haal om de schaalbalk weer aan te zetten de '//' weg voor .addTo(map)
+
 var scale = L.control.scale({position: 'bottomright'})//.addTo(map); 
 
-// Get the label.
+// Get the label, dit zijn de getallen van km en miles.
 var metres = scale._getRoundNum(map.containerPointToLatLng([0, map.getSize().y / 2 ]).distanceTo( map.containerPointToLatLng([scale.options.maxWidth,map.getSize().y / 2 ])))
   label = metres < 1000 ? metres + ' m' : (metres / 1000) + ' km';
 
-  console.log(label);
 
 //__________________________________________________________________________________________________________________  
                                         //Functies:
 
 //Functies
-    function style(feature) {
+    function stijlfunctie(feature) {
         return {
             color       : feature.properties.color,
             opacity     : feature.properties.opacity,
@@ -245,6 +265,8 @@ var metres = scale._getRoundNum(map.containerPointToLatLng([0, map.getSize().y /
         };
     };
 //Met bovenstaande functie geef je aan welke eigenschappen (properties) je uit de GeoJson bestanden haalt. Zorg dus dat in deze bestanden de gegevens kloppen.
+
+// De variabele-naam 'layer' hieronder heeft in dit geval betrekking op de routelijnen
     
 function highlightFeature(e) {
     var layer = e.target;
@@ -260,9 +282,16 @@ function highlightFeature(e) {
     }
 }
 
+// Hieronder reset je het oorspronkelijke uiterlijk van 1 van de lijnen (maakt niet uit welke).
+// Ook alle andere lijnen worden vanzelf ge-reset, omdat bij function stijlfunctie(feature) is aangegeven dat voor ELKE lijn de properties uit de betreffende geoJson worden opgezocht.
+
 function resetHighlight(e) {
     Aanbevolen.resetStyle(e.target);
 }
+
+// zoomToFeature maakt het geselecteerde Feature ineens beeldvullend. 
+// Bijvoorbeeld: als je een lijn-feature van de hele E1 zou hebben dan zou de kaartweergave worden uitgezoomd tot het hele gebied vanaf de Noordkaap tot Sicilie.
+// Dus: met beleid toepassen ;-)
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
@@ -276,7 +305,11 @@ function onEachFeature(feature, layer) {
     })
 }
 
-function yourOnEachFeature(feature, layer){
+// Hieronder wordt de inhoud van de popups (voor Points zoals Ferry en Funicular) ontleend aan de gegevens in de betreffende geoJson bestanden. Dat gebeurt d.m.v. Functions.
+
+// Dit is dus iets ingewikkelder en krachtiger dan de oplossing bij de eenvoudige popups voor de routelijnen zoals dat hierboven in dit Script.js is gedefinieerd.
+
+function ferryOnEachFeature(feature, layer){
     if (feature.properties.name) {
         layer.bindPopup(feature.properties.name + '<br>' + feature.properties.omschrijvi + '<br>' + feature.properties.website + '<br>' + '<br>' +  feature.properties.url_image);
     }

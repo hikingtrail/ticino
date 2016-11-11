@@ -1,4 +1,4 @@
-﻿{
+{
 
      "type": "FeatureCollection",
 
@@ -23,8 +23,8 @@
 	    "properties": { 
 		"nummer": 2, 
 		"name": "<b>Navigazione del Lago di Lugano</b>", 
-		"omschrijvi": "This is the ferry from Morcote to Porto Ceresio", 
-		"website": "<b>Link:<b> <a target=_blank href=https://www.lakelugano.ch//en>https://www.lakelugano.ch</a>", 
+		"omschrijvi": "Ferry from Morcote to Porto Ceresio, <br> only in summer season", 
+		"website": "<b>Link:<b> <a target=_blank href=https://www.lakelugano.ch//en>https://www.LakeLugano.ch</a>", 
 		"url_image": "<div> <img style=width:80% src=images/veerboot.jpg /> </div>" 
 	    }, 
 	    "geometry": { 

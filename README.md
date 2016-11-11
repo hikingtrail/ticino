@@ -14,6 +14,7 @@ Marijn Bosma, [BosmaGrafiek](http://www.BosmaGrafiek.nl), finishes this [Webmap 
 
 ## presentation
 Marijn Bosma presents this webmap on 20161119 to [De Vereniging Pelgrimswegen naar Rome,](http://www.Pelgrimswegen.nl) the Dutch society for Pilgrims to Rome.
+[Preview of this webmap](https://hikingtrail.github.io/ticino)  
 
 ## feedback
 It's a work in progress.  
