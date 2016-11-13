@@ -87,12 +87,13 @@ var Imagery = L.esri.basemapLayer('Imagery');
 //__________________________________________________________________________________________________________________    
                                         //GeoJsons oproepen:
 //Routes:
+    jQuery.getJSON("GeoJson/Bosma_aanbevolen.geojson", function (data) { Aanbevolen.addData(data)}),
     jQuery.getJSON("GeoJson/E1_hoofdroute_italie.json", function (data) { Hoofdroute.addData(data)}),
     jQuery.getJSON("GeoJson/E1_lokale_varianten.json", function (data) { LokaleVariant.addData(data)}),
     jQuery.getJSON("GeoJson/Swiss_route02.geojson", function (data) { Swiss02.addData(data)}),
     jQuery.getJSON("GeoJson/Swiss_route07.geojson", function (data) { Swiss07.addData(data)}),
-    jQuery.getJSON("GeoJson/Via Francigena.geojson", function (data) { ViaF.addData(data)}),
-    jQuery.getJSON("GeoJson/Bosma_aanbevolen.geojson", function (data) { Aanbevolen.addData(data)});
+    jQuery.getJSON("GeoJson/Via Francigena.geojson", function (data) { ViaF.addData(data)});
+
 
 //Points of Interest:
     jQuery.getJSON("GeoJson/POI_stations_langs_route.geojson", function (data) { Stations.addData(data)}),
@@ -103,10 +104,13 @@ var Imagery = L.esri.basemapLayer('Imagery');
 //__________________________________________________________________________________________________________________      
                                         //Maken van de kaart:
 //Map + layers + eigenschappen 
-// {layers: [osm, Hoofdroute] zorgt er voor dat de osm basemap en de Hoofdroute lijn direct al AAN staan
+
+// {layers: [ osm, Hoofdroute, LokaleVariant, ViaF, Aanbevolen ] bepaalt de volgorde in het uitklapmenu, en of de onderwerpen direct al AANGEVINKT staan. 
+// De volgorde waarin de lijnen op het beeldscherm worden getekend wordt verderop in dit script bepaald bij "overlays, Variabelen voor het lagen menu". 
+
 // .setView([45.654464,  9.164932], 10) bepaalt de plek op aarde en de zoomfactor van het begin-beeld
 
-    var map = L.map('map', {layers: [osm, Hoofdroute], 
+    var map = L.map('map', {layers: [osm, Hoofdroute, LokaleVariant, ViaF, Aanbevolen ], 
             minZoom: 9,
             maxBounds: [[46.160594, 8.1672119140625],   //NW punt
                         [44.991221, 8.1672119140625],   //ZW punt
@@ -148,6 +152,7 @@ Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
 //Variabelen voor het lagen menu
 // false = niet opengeklapt in het menu
 // true = direct al wel opengeklapt in het menu
+// Of de onderwerpen al of niet zijn AANgevinkt wordt hierboven al bepaald bij "Maken van de kaart"
 
 
 //basemaps = kaarten, dat zijn de achtergrondkaarten:
@@ -166,18 +171,22 @@ Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
             }
         }];
 
-//overlays = data, dat zijn de Routes en Punten:
+//overlays = data, dat zijn de Lijnen (Routes) en Punten (POI's):
+// De volorde hieronder bepaalt in welke volorde de lijnen op het beeldscherm worden gezet. 
+// Nu liggen de geelgekleurde Recommended lijnen mooi ONDER de overige lijnen.
+
     var data = [
                     {
                     groupName: "Hiking Trails",
                     expanded: true,
                     layers: {
+            "Recommended"               : Aanbevolen,
             "E1 Hiking trail"           : Hoofdroute,
             "E1 Local alternatives"     : LokaleVariant,
             "Swiss 2: Trans Swiss Trail": Swiss02,
             "Swiss 7: Via Gottardo"     : Swiss07,
-            "Via Francigena"            : ViaF,
-            "Recommended"               : Aanbevolen
+            "Via Francigena"            : ViaF
+
             }
         },
         
@@ -290,8 +299,7 @@ function resetHighlight(e) {
 }
 
 // zoomToFeature maakt het geselecteerde Feature ineens beeldvullend. 
-// Bijvoorbeeld: als je een lijn-feature van de hele E1 zou hebben dan zou de kaartweergave worden uitgezoomd tot het hele gebied vanaf de Noordkaap tot Sicilie.
-// Dus: met beleid toepassen ;-)
+// Bijvoorbeeld: als je een lijn-feature van de hele E1 zou hebben dan zou de kaartweergave worden uitgezoomd tot het hele gebied vanaf de Noordkaap tot Sicilie. Dat is een beetje te veel van het goede. Daarom met beleid toepassen ;-)
 
 function zoomToFeature(e) {
     map.fitBounds(e.target.getBounds());
