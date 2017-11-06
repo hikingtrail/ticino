@@ -22,6 +22,7 @@ var
     Swiss07 = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     ViaF = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     Abati = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    Lucomagno_combi = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     Aanbevolen = L.geoJson(null, {style:stijlfunctie});
 
 
@@ -94,6 +95,7 @@ var Imagery = L.esri.basemapLayer('Imagery');
     jQuery.getJSON("GeoJson/Swiss_route02.geojson", function (data) { Swiss02.addData(data)}),
     jQuery.getJSON("GeoJson/Swiss_route07.geojson", function (data) { Swiss07.addData(data)}),
     jQuery.getJSON("GeoJson/Via_degli_abati_pavia_bobbio.js.json", function (data) { Abati.addData(data)}),
+    jQuery.getJSON("GeoJson/Lucomagno_combi.js.json", function (data) { Lucomagno_combi.addData(data)}),
     jQuery.getJSON("GeoJson/Via Francigena.geojson", function (data) { ViaF.addData(data)});
 
 
@@ -107,12 +109,12 @@ var Imagery = L.esri.basemapLayer('Imagery');
                                         //Maken van de kaart:
 //Map + layers + eigenschappen
 
-// {layers: [ osm, Hoofdroute, LokaleVariant, ViaF, Aanbevolen ] bepaalt de volgorde in het uitklapmenu, en of de onderwerpen direct al AANGEVINKT staan.
+// {layers: [ osm, Hoofdroute, LokaleVariant, Lucomagno_combi, ViaF, Abati, Aanbevolen ] bepaalt de volgorde in het uitklapmenu, en of de onderwerpen direct al AANGEVINKT staan.
 // De volgorde waarin de lijnen op het beeldscherm worden getekend wordt verderop in dit script bepaald bij "overlays, Variabelen voor het lagen menu".
 
 // .setView([45.654464,  9.164932], 10) bepaalt de plek op aarde en de zoomfactor van het begin-beeld
 
-    var map = L.map('map', {layers: [osm, Hoofdroute, LokaleVariant, ViaF, Abati, Aanbevolen ],
+    var map = L.map('map', {layers: [osm, Hoofdroute, LokaleVariant, ViaF, Aanbevolen ],
             minZoom: 9,
             maxBounds: [[46.160594, 8.1672119140625],   //NW punt
                         [44.991221, 8.1672119140625],   //ZW punt
@@ -144,8 +146,11 @@ Swiss02.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.c
 
 Swiss07.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.wanderland.ch/en/routes/route-07.html">Swiss 7: Via Gottardo</a> <br> <b>App:</b> Search for <i>Switzerland Mobility</i>')
 
-Abati.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.viadegliabati.com/">Via degli Abati, Pavia - Bobbio</a>');
+Abati.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.viadegliabati.com/">Via degli Abati, Pavia - Bobbio</a>')
 
+Lucomagno_combi.bindPopup('<b>Site:</b> <a target="_blank" href="http://francigena-international.org/en_GB/via-francisca-du-lukmanier/">Via Francisca del Lucomagno, Lavena Ponte Tresa - Varese - Pavia</a>')
+
+;
 
 
 //__________________________________________________________________________________________________________________
@@ -176,8 +181,8 @@ Abati.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.viadegliabati.
         }];
 
 //overlays = data, dat zijn de Lijnen (Routes) en Punten (POI's):
-// De volorde hieronder bepaalt in welke volorde de lijnen op het beeldscherm worden gezet.
-// Nu liggen de geelgekleurde Recommended lijnen mooi ONDER de overige lijnen.
+// De volgorde hieronder bepaalt in welke volgorde de lijnen op het beeldscherm worden gezet.
+// Nu liggen de geelgekleurde Recommended lijnen mooi ONDER de overige lijnen. (Toch ?)
 
     var data = [
                     {
@@ -186,6 +191,7 @@ Abati.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.viadegliabati.
                     layers: {
 
             "E1 Hiking trail"           : Hoofdroute,
+            "Via Francisca del Lucomagno"     : Lucomagno_combi,
             "E1 Local alternatives"     : LokaleVariant,
             "Swiss 2: Trans Swiss Trail": Swiss02,
             "Swiss 7: Via Gottardo"     : Swiss07,
