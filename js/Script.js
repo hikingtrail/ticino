@@ -23,6 +23,7 @@ var
     ViaF = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     Abati = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     Lucomagno_combi = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
+    Wich_westoever = L.geoJson(null, {style:stijlfunctie, onEachFeature:onEachFeature}),
     Aanbevolen = L.geoJson(null, {style:stijlfunctie});
 
 
@@ -96,6 +97,7 @@ var Imagery = L.esri.basemapLayer('Imagery');
     jQuery.getJSON("GeoJson/Swiss_route07.geojson", function (data) { Swiss07.addData(data)}),
     jQuery.getJSON("GeoJson/Via_degli_abati_pavia_bobbio.js.json", function (data) { Abati.addData(data)}),
     jQuery.getJSON("GeoJson/Lucomagno_combi.js.json", function (data) { Lucomagno_combi.addData(data)}),
+    jQuery.getJSON("GeoJson/Wich_westoever.js.json", function (data) { Wich_westoever.addData(data)}),
     jQuery.getJSON("GeoJson/Via Francigena.geojson", function (data) { ViaF.addData(data)});
 
 
@@ -150,6 +152,8 @@ Abati.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.viadegliabati.
 
 Lucomagno_combi.bindPopup('<b>Site:</b> <a target="_blank" href="http://francigena-international.org/en_GB/via-francisca-du-lukmanier/">Via Francisca del Lucomagno, Lavena Ponte Tresa - Varese - Pavia</a>')
 
+Wich_westoever.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.bosmagrafiek.nl/">test 20171110</a>')
+
 ;
 
 
@@ -197,6 +201,7 @@ Lucomagno_combi.bindPopup('<b>Site:</b> <a target="_blank" href="http://francige
             "Swiss 7: Via Gottardo"     : Swiss07,
             "Via degli Abati"     : Abati,
             "Via Francigena"            : ViaF,
+            "Wich_westoever"            : Wich_westoever,
             "Recommended"               : Aanbevolen
 
             }
