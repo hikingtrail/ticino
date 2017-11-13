@@ -56,6 +56,20 @@ var
                         }
                 });
 
+    Horeca = L.geoJson(null, {
+                style: function(feature) {
+                    return {
+                                    color: '#000000',
+                                    fillColor: '#ffff00'
+                                    };
+                                },
+                                pointToLayer: function(feature, latlng) {
+                                    return new L.CircleMarker(latlng, {
+                                        radius: 5,
+                                        fillOpacity: 0.85
+                                        });
+                                    }
+                            });
     FerryFunicular = L.geoJson(null, {
                 style: function(feature) {
                     return {
@@ -104,6 +118,7 @@ var Imagery = L.esri.basemapLayer('Imagery');
 //Points of Interest:
     jQuery.getJSON("GeoJson/POI_stations_langs_route.geojson", function (data) { Stations.addData(data)}),
     jQuery.getJSON("GeoJson/POI_brug_voor_voetgangers.geojson", function (data) { Bruggen.addData(data)}),
+    jQuery.getJSON("GeoJson/POI_test.geojson", function (data) { Horeca.addData(data)}),
     jQuery.getJSON("GeoJson/POI_pont_en_trein.geojson", function (data) { FerryFunicular.addData(data)}),
     jQuery.getJSON("GeoJson/POI_navigation.geojson", function (data) { opmerkingen.addData(data)});
 
@@ -213,6 +228,7 @@ Wich_westoever.bindPopup('<b>Site:</b> <a target="_blank" href="http://www.bosma
                     expanded: true,
                     layers: {
             "Pedestrian bridges"        : Bruggen,
+            "Horeca"                    : Horeca,
             "Train stations"            : Stations,
             "Ferry and funicular"       : FerryFunicular
             }
