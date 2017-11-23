@@ -68,7 +68,7 @@ var
                                         radius: 5,
                                         fillOpacity: 0.85
                                         });
-                                    }
+                                    }, onEachFeature: horecaOnEachFeature
                             });
     FerryFunicular = L.geoJson(null, {
                 style: function(feature) {
@@ -79,7 +79,7 @@ var
                     },
                     pointToLayer: function(feature, latlng) {
                         return new L.CircleMarker(latlng, {
-                            radius: 5,
+                            radius: 10,
                             fillOpacity: 0.85
                             });
                         }, onEachFeature: ferryOnEachFeature
@@ -351,6 +351,12 @@ function onEachFeature(feature, layer) {
 // Dit is dus iets ingewikkelder en krachtiger dan de oplossing bij de eenvoudige popups voor de routelijnen zoals dat hierboven in dit Script.js is gedefinieerd.
 
 function ferryOnEachFeature(feature, layer){
+    if (feature.properties.name) {
+        layer.bindPopup(feature.properties.name + '<br>' + feature.properties.omschrijvi + '<br>' + feature.properties.website + '<br>' + '<br>' +  feature.properties.url_image);
+    }
+}
+
+function horecaOnEachFeature(feature, layer){
     if (feature.properties.name) {
         layer.bindPopup(feature.properties.name + '<br>' + feature.properties.omschrijvi + '<br>' + feature.properties.website + '<br>' + '<br>' +  feature.properties.url_image);
     }
